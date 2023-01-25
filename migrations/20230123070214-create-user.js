@@ -22,7 +22,11 @@ module.exports = {
         type: Sequelize.STRING
       },
       specialist_id: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references : {
+          model : 'Specialists',
+          key : 'id'
+        }
       },
       profile_desc: {
         type: Sequelize.STRING

@@ -1,4 +1,5 @@
 'use strict';
+const { string } = require('joi');
 const {
   Model
 } = require('sequelize');
@@ -14,10 +15,49 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   User.init({
-    full_name: DataTypes.STRING,
-    email: DataTypes.STRING,
-    password: DataTypes.STRING,
-    role: DataTypes.STRING,
+    full_name: {
+      type : DataTypes.STRING,
+      allowNull : false,
+      validate : {
+        notNull : {
+          msg : 'Full Name cannot be ommited'
+        }
+      }
+    },
+    email: {
+      type : DataTypes.STRING,
+      allowNull : false,
+      unique : true,
+      validate : {
+        notNull : {
+          msg : 'Email cannot be ommited'
+        },
+        notEmpty : {
+          msg : 'Email cannot be an empty string'
+        },
+        isEmail : {
+          msg : 'Wrong email format'
+        }
+      }
+    },
+    password: {
+      type : DataTypes.STRING,
+      allowNull : false,
+      validate : {
+        notNull : {
+          msg : 'Full Name cannot be ommited'
+        }
+      }
+    },
+    role: {
+      type : DataTypes.STRING,
+      allowNull : false,
+      defaultValue : 'user',
+      validate : {
+        notNull : true,
+        isIn : [['admin', 'doctor', 'user']]
+      }
+    },
     specialist_id: DataTypes.INTEGER,
     profile_desc: DataTypes.STRING,
     profile_picture: DataTypes.STRING,
