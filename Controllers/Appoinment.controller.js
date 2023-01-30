@@ -5,6 +5,7 @@ class AppoinmentControllers {
     let {
       specialist_id,
       doctor_id,
+      user_id,
       payment_id,
       schedules_id,
       appoinment_desc,
@@ -17,6 +18,7 @@ class AppoinmentControllers {
       const insertDataAppoinment = await Appoinment.create({
         specialist_id: specialist_id,
         doctor_id: doctor_id,
+        user_id: user_id,
         payment_id: payment_id,
         schedules_id: schedules_id,
         appoinment_desc: appoinment_desc,
@@ -30,6 +32,7 @@ class AppoinmentControllers {
         data: {
           specialist_id: insertDataAppoinment.specialist_id,
           doctor_id: insertDataAppoinment.doctor_id,
+          user_id: insertDataAppoinment.user_id,
           payment_id: insertDataAppoinment.payment_id,
           schedules_id: insertDataAppoinment.schedules_id,
           appoinment_desc: insertDataAppoinment.appoinment_desc,
