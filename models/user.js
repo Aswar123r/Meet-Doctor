@@ -12,6 +12,18 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      this.hasMany(models.Rating, {
+        foreignKey : 'doctor_id'
+      })
+      this.hasMany(models.Rating, {
+        foreignKey : 'user_id'
+      })
+      this.belongsTo(models.Specialist, {
+        foreignKey : 'specialist_id'
+      })
+      this.hasMany(models.Schedule_doctor, {
+        foreignKey : 'doctor_id'
+      })
     }
   }
   User.init({
@@ -62,7 +74,10 @@ module.exports = (sequelize, DataTypes) => {
     profile_desc: DataTypes.STRING,
     profile_picture: DataTypes.STRING,
     price: DataTypes.INTEGER,
-    rating: DataTypes.INTEGER
+    rating: {
+      type : DataTypes.INTEGER,
+      defaultValue : 0
+    }
   }, {
     sequelize,
     modelName: 'User',

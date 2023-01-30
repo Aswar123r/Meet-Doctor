@@ -9,7 +9,7 @@ async function authenticationMiddleware (req, res, next){
     })
   }
     const {id, email } = Verify(authHeader)
-    const Users = await User.findOne({ where: { id }, attributes : ['id', 'email', 'role']})
+    const Users = await User.findOne({ where: { id }, attributes : ['id', 'email']})
     if(!Users) {
       return res.status(403).json({
       message : "Token is not valid!"

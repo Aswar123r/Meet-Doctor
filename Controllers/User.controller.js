@@ -7,6 +7,10 @@ class UserControllers {
         let {full_name, email, password} = req.body
         password = Hash(password)
         try {
+            const validateEmail = await User.findOne({where : {email : email}})
+            if(validateEmail) return res.status(400).json({
+                message : 'Email already registered'
+            })
             const insertDataUser = await User.create({full_name : full_name, email : email, password : password})
             return res.status(201).json({
                 message : 'Conratulations You Are Registered',
@@ -46,6 +50,23 @@ class UserControllers {
             console.log(err)
             return res.status(500).json({
                 message : err
+            })
+        }
+    }
+
+    static async Detail (req, res) {
+        const {id} = req.user
+        try {
+            const detailsUser = await User.findOne({where : {id : id}, attributes : {
+                exclude : ['password', 'id', 'role', 'specialist_id', 'price', 'price']
+            }})
+            return res.status(200).json({
+                data : detailsUser
+            })
+        } catch (err) {
+            console.log(err)
+            return res.status(500).json({
+                message : 'INTERNAL SERVER ERROR'
             })
         }
     }

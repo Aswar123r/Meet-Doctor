@@ -10,16 +10,21 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       full_name: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull : false
       },
       email: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        unique : true,
+        allowNull : false
       },
       password: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull : false
       },
       role: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull : false
       },
       specialist_id: {
         type: Sequelize.INTEGER,
@@ -34,11 +39,16 @@ module.exports = {
       profile_picture: {
         type: Sequelize.STRING
       },
+      whatsapp: {
+        type: Sequelize.STRING,
+        //unique : true
+      },
       price: {
         type: Sequelize.INTEGER
       },
       rating: {
-        type: Sequelize.FLOAT
+        type: Sequelize.FLOAT,
+        allowNull : false
       },
       createdAt: {
         allowNull: false,
