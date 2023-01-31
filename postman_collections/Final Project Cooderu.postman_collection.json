@@ -1,88 +1,66 @@
 {
-	"info": {
-		"_postman_id": "d3e7347a-a0ef-49dd-8ce7-b7812903d785",
-		"name": "Final Project Cooderu",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "24583700"
-	},
-	"item": [
-		{
-			"name": "Appointment",
-			"item": [
-				{
-					"name": "Get All Appointments by Patient ID",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "localhost:8080/api/appointment/get/patient/6",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"appointment",
-								"get",
-								"patient",
-								"6"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get All Appointments by Doctor ID",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "localhost:8080/api/appointment/get/doctor/1",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"appointment",
-								"get",
-								"doctor",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Save Appointment",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"specialist_id\": 1,\n    \"doctor_id\": 1,\n    \"user_id\": 6,\n    \"payment_id\": null,\n    \"schedule_id\": 1,\n    \"appointment_desc\": \"test\",\n    \"appointment_time\": \"20230101015959\",\n    \"total_price\": 1200,\n    \"status\": \"Waiting for payment\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "localhost:8080/api/appointment/save",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"appointment",
-								"save"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		}
-	]
+  "info": {
+    "_postman_id": "d3e7347a-a0ef-49dd-8ce7-b7812903d785",
+    "name": "Final Project Cooderu",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "24583700"
+  },
+  "item": [
+    {
+      "name": "Appointment",
+      "item": [
+        {
+          "name": "Get All Appointments by Patient ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "localhost:8080/api/appointment/get/patient/6",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "appointment", "get", "patient", "6"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Appointments by Doctor ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "localhost:8080/api/appointment/get/doctor/1",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "appointment", "get", "doctor", "1"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Save Appointment",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"specialist_id\": 1,\n    \"doctor_id\": 1,\n    \"user_id\": 6,\n    \"payment_id\": null,\n    \"schedule_id\": 1,\n    \"appointment_desc\": \"test\",\n    \"appointment_time\": \"20230101015959\",\n    \"total_price\": 1200,\n    \"status\": \"Waiting for payment\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:8080/api/appointment/save",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "appointment", "save"]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
 }
