@@ -47,11 +47,28 @@ class AppointmentControllers {
     }
   }
 
-  static async GetAppointment(req, res) {
+  static async GetAllAppointmentsByPatientId(req, res) {
     const { patientId } = req.params;
     try {
       const appointments = await Appointments.findAll({
         where: { user_id: patientId },
+      });
+      return res.status(200).json({
+        data: appointments,
+      });
+    } catch (err) {
+      console.log(err);
+      return res.status(500).json({
+        message: "INTERNAL SERVER ERROR",
+      });
+    }
+  }
+
+  static async GetAllAppointmentsByDoctorId(req, res) {
+    const { doctorId } = req.params;
+    try {
+      const appointments = await Appointments.findAll({
+        where: { doctor_id: doctorId },
       });
       return res.status(200).json({
         data: appointments,
