@@ -14,6 +14,9 @@ module.exports = (sequelize, DataTypes) => {
       this.hasMany(models.User, {
         foreignKey : 'specialist_id'
       })
+      this.hasMany(models.Appoinment, {
+        foreignKey : 'specialist_id'
+      })
     }
   }
   Specialist.init({

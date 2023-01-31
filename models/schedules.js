@@ -14,6 +14,9 @@ module.exports = (sequelize, DataTypes) => {
       this.hasMany(models.Schedule_doctor, {
         foreignKey : 'schedule_id'
       })
+      this.hasMany(models.Appoinment, {
+        foreignKey : 'schedule_id'
+      })
     }
   }
   Schedules.init({
