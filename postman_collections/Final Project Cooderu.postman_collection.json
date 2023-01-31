@@ -32,6 +32,28 @@
 					"response": []
 				},
 				{
+					"name": "Get All Appointments by Doctor ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/appointment/get/doctor/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"appointment",
+								"get",
+								"doctor",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Save Appointment",
 					"request": {
 						"method": "POST",
