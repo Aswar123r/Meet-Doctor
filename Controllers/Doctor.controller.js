@@ -1,4 +1,5 @@
 const {User, Specialist, Schedule_doctor, Schedules} = require('../models')
+const {Op} = require('sequelize')
 
 class DoctorController {
     static async Register (req, res) {
@@ -32,9 +33,9 @@ class DoctorController {
                         model : Specialist,
                         attributes : ['specialist_name'] 
                     },
-                ]
+                ],
                 
-            },{attributes : ['id','full_name', 'profile_picture', 'profile_desc', 'email', 'whatsapp']})
+            attributes : ['id','full_name', 'profile_picture', 'profile_desc', 'email', 'whatsapp']})
             if(!Doctor) return res.status(404).json({
                 message : 'NOT FOUND'
             })
@@ -54,7 +55,7 @@ class DoctorController {
         let listDoctors = ''
         try {
             if(specialistId && nameDoctor) {
-                 const listDoctor = await User.findAll({where : {specialist_id : specialistId, role : 'doctor', [Op.substring] : nameDoctor},
+                 const listDoctor = await User.findAll({where : {specialist_id : specialistId, role : 'doctor', full_name : {[Op.substring] : nameDoctor}},
             include : [
                 {
                     model : Specialist,
@@ -86,7 +87,7 @@ class DoctorController {
             })
             listDoctors = listDoctor
             } else if (nameDoctor) {
-                const listDoctor = await User.findAll({where : {[Op.substring] : nameDoctor, role : 'doctor'},
+                const listDoctor = await User.findAll({where : { role : 'doctor', full_name : {[Op.substring] : nameDoctor} },
             include : [
                 {
                     model : Specialist,
@@ -124,6 +125,9 @@ class DoctorController {
             })
         } catch (err) {
             console.log(err)
+            return res.status(500).json({
+                message : 'INTERNAL SERVER ERROR'
+            })
         }
     }
 }

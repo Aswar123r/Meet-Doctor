@@ -6,9 +6,9 @@ const Appoinment = require('./Appoinment.Router')
 const Specialist = require('./Specialist.router')
 const Doctor = require('./Doctor.router')
 
-Router.use('/user', User)
+Router.use('/users', User)
 Router.use('/specialists', Specialist)
-Router.use('/doctor', Doctor)
+Router.use('/doctors', Doctor)
 Router.use('/appoinment', Appoinment)
 
 module.exports = Router
