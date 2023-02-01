@@ -6,7 +6,6 @@ class AppointmentControllers {
     let {
       specialist_id,
       doctor_id,
-      user_id,
       payment_id,
       schedule_id,
       appointment_desc,
@@ -18,7 +17,7 @@ class AppointmentControllers {
       const insertDataAppointment = await Appointments.create({
         specialist_id: specialist_id,
         doctor_id: doctor_id,
-        user_id : user_id
+        user_id: user_id,
         payment_id: payment_id,
         schedule_id: schedule_id,
         appointment_desc: appointment_desc,
