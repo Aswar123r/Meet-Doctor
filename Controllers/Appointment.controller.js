@@ -2,6 +2,7 @@ const { Appointments } = require("../models");
 
 class AppointmentControllers {
   static async SaveAppointment(req, res) {
+    const user_id = req.user.id
     let {
       specialist_id,
       doctor_id,
@@ -17,7 +18,7 @@ class AppointmentControllers {
       const insertDataAppointment = await Appointments.create({
         specialist_id: specialist_id,
         doctor_id: doctor_id,
-        user_id: user_id,
+        user_id : user_id
         payment_id: payment_id,
         schedule_id: schedule_id,
         appointment_desc: appointment_desc,

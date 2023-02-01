@@ -1,6 +1,18 @@
+const firebase = require('firebase/app')
+const {getStorage, ref, uploadBytesResumable, getDownloadURL, deleteObject } = require('firebase/storage')
 const {User} = require('../models')
 const {Sign} = require('../Helpers/JWT.helper')
 const {Hash, Compare} = require('../Helpers/Bcrypt.helper')
+const { where } = require('sequelize')
+firebase.initializeApp({
+    apiKey : process.env.apiKey,
+    authDomain : process.env.authDomain,
+    projectId : process.env.projectId,
+    storageBucket : process.env.storageBucket,
+    messagingSenderId : process.env.messagingSenderId,
+    appId : process.env.appId
+})
+const storage = getStorage()
 
 class UserControllers {
     static async Register (req, res) {
@@ -51,6 +63,46 @@ class UserControllers {
             return res.status(500).json({
                 message : 'INTERNAL SERVER ERROR'
             })
+        }
+    }
+
+    static async uploadProfilePictures (req, res) {
+        const {id} = req.user
+        const {full_name, profile_desc, whatsapp} = req.body
+        console.log(whatsapp)
+        try {
+            const metaData = {
+            contentType : 'image/jpeg'
+        }
+        const {profile_picture} = await User.findByPk(id)
+        if(profile_picture) {
+            const desertref = await ref(storage, profile_picture)
+            deleteObject(desertref).then((result) => {
+                console.log('berhasil di hapus')
+            }).catch((err) => {
+                console.log(err)
+            });
+        }
+        const storageRef = await ref(storage, new Date().getTime() + req.file.originalname)
+        const uploadTask = await uploadBytesResumable(storageRef, req.file.buffer, metaData)
+        const downloadURL = await getDownloadURL(uploadTask.ref)
+        const updateUser = await User.update({
+            full_name : full_name, 
+            profile_desc : profile_desc, 
+            profile_picture : downloadURL, 
+            whatsapp : whatsapp}, {where : {id : id}})
+        const dataUser = await User.findByPk(id)
+            return res.status(200).json({
+                message : 'Update Successfully',
+                data : {
+                    full_name : dataUser.full_name,
+                    whatsapp : dataUser.whatsapp,
+                    profile_desc : dataUser.profile_desc,
+                    profile_picture : dataUser.profile_picture
+                }
+            })
+        } catch (err) {
+            console.log(err)
         }
     }
 

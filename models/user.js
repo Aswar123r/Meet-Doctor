@@ -24,12 +24,6 @@ module.exports = (sequelize, DataTypes) => {
       this.hasMany(models.Schedule_doctor, {
         foreignKey : 'doctor_id'
       })
-      this.hasMany(models.Appointments, {
-        foreignKey : 'doctor_id'
-      })
-      this.hasMany(models.Appointments, {
-        foreignKey : 'user_id'
-      })
     }
   }
   User.init({
@@ -75,6 +69,9 @@ module.exports = (sequelize, DataTypes) => {
         notNull : true,
         isIn : [['admin', 'doctor', 'user']]
       }
+    },
+    whatsapp : {
+      type : DataTypes.STRING,
     },
     specialist_id: DataTypes.INTEGER,
     profile_desc: DataTypes.STRING,
