@@ -27,7 +27,7 @@ const paymentController = asyncWrapper(async (req, res) => {
 
     const requestPaymentToken = await axios({
       // Below is the API URL endpoint
-      url: `${process.env.API_BASE_URL}`,
+      url: `${process.env.API_MIDTRANS_TRANSACTION_URL}`,
       method: "post",
       headers: {
         "Content-Type": "application/json",
