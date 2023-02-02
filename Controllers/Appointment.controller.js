@@ -2,7 +2,7 @@ const { Appointments } = require("../models");
 
 class AppointmentControllers {
   static async SaveAppointment(req, res) {
-    const user_id = req.user.id
+    const user_id = req.user.id;
     let {
       specialist_id,
       doctor_id,
@@ -48,7 +48,7 @@ class AppointmentControllers {
   }
 
   static async GetAllAppointmentsByPatientId(req, res) {
-    const user_id = req.user.id
+    const patientId = req.user.id;
     try {
       const appointments = await Appointments.findAll({
         where: { user_id: user_id },
@@ -65,7 +65,7 @@ class AppointmentControllers {
   }
 
   static async GetAllAppointmentsByDoctorId(req, res) {
-    const { doctorId } = req.params;
+    const doctorId = req.user.id;
     try {
       const appointments = await Appointments.findAll({
         where: { doctor_id: doctorId },
