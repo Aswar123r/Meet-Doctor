@@ -25,34 +25,6 @@ const paymentController = asyncWrapper(async (req, res) => {
       status,
     } = appointment;
 
-    // const test = await axios
-    //   .post(
-    //     `${process.env.API_BASE_URL}`,
-    //     {
-    //       transaction_details: {
-    //         order_id: "APP-" + id + "-" + getCurrentTimestamp(),
-    //         gross_amount: total_price,
-    //       },
-    //     },
-    //     {
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //         Accept: "application/json",
-    //         Authorization:
-    //           "Basic " +
-    //           Buffer.from(`${process.env.SERVER_KEY}`).toString("base64"),
-    //       },
-    //     }
-    //   )
-    //   .then(({ data }) => console.log(data));
-
-    //   if (test) {
-    //     return res.status(200).json({
-    //       status: "ok",
-    //       token: requestPaymentToken.data.token,
-    //     });
-    //   }
-
     const requestPaymentToken = await axios({
       // Below is the API URL endpoint
       url: `${process.env.API_BASE_URL}`,
@@ -79,7 +51,7 @@ const paymentController = asyncWrapper(async (req, res) => {
       return res.status(200).json({
         status: "ok",
         token: requestPaymentToken.data.token,
-        redirect_url: requestPaymentToken.data.redirect_url
+        redirect_url: requestPaymentToken.data.redirect_url,
       });
     }
   } catch (error) {

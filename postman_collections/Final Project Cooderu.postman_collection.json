@@ -12,14 +12,18 @@
         {
           "name": "Get All Appointments by Patient ID",
           "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OCwiaWF0IjoxNjc1MzU1MTI1LCJleHAiOjE2NzUzNTg3MjV9.O0J7Tm9kuujKgUXL2j1t3y9hXeZfJqrsL8XIFa05NIs",
+                  "type": "string"
+                }
+              ]
+            },
             "method": "GET",
-            "header": [
-              {
-                "key": "auth",
-                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiaWF0IjoxNjc1MzQ3NDM0LCJleHAiOjE2NzUzNTEwMzR9.ms_AFYZ2UdVzX0nAaWt616yRJAxfTATmLIWfklQhM9o",
-                "type": "text"
-              }
-            ],
+            "header": [],
             "url": {
               "raw": "localhost:8080/api/appointment/get/patient",
               "host": ["localhost"],
@@ -32,19 +36,23 @@
         {
           "name": "Get Appointment by Appointment ID",
           "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OCwiaWF0IjoxNjc1MzU1MTI1LCJleHAiOjE2NzUzNTg3MjV9.O0J7Tm9kuujKgUXL2j1t3y9hXeZfJqrsL8XIFa05NIs",
+                  "type": "string"
+                }
+              ]
+            },
             "method": "GET",
-            "header": [
-              {
-                "key": "auth",
-                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiaWF0IjoxNjc1MzQ3NjIzLCJleHAiOjE2NzUzNTEyMjN9.r6EQ4amn5GI8FGqhYHtV86LEGAlKRFYsueKuy49lLCM",
-                "type": "text"
-              }
-            ],
+            "header": [],
             "url": {
-              "raw": "localhost:8080/api/appointment/get/2",
+              "raw": "localhost:8080/api/appointment/get/1",
               "host": ["localhost"],
               "port": "8080",
-              "path": ["api", "appointment", "get", "2"]
+              "path": ["api", "appointment", "get", "1"]
             }
           },
           "response": []
@@ -52,14 +60,18 @@
         {
           "name": "Cancel Appointment by Appointment ID",
           "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OCwiaWF0IjoxNjc1MzU1MTI1LCJleHAiOjE2NzUzNTg3MjV9.O0J7Tm9kuujKgUXL2j1t3y9hXeZfJqrsL8XIFa05NIs",
+                  "type": "string"
+                }
+              ]
+            },
             "method": "GET",
-            "header": [
-              {
-                "key": "auth",
-                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiaWF0IjoxNjc1MzQ3NjIzLCJleHAiOjE2NzUzNTEyMjN9.r6EQ4amn5GI8FGqhYHtV86LEGAlKRFYsueKuy49lLCM",
-                "type": "text"
-              }
-            ],
+            "header": [],
             "url": {
               "raw": "localhost:8080/api/appointment/cancel/1",
               "host": ["localhost"],
@@ -75,14 +87,18 @@
             "disableBodyPruning": true
           },
           "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OCwiaWF0IjoxNjc1MzU1MTI1LCJleHAiOjE2NzUzNTg3MjV9.O0J7Tm9kuujKgUXL2j1t3y9hXeZfJqrsL8XIFa05NIs",
+                  "type": "string"
+                }
+              ]
+            },
             "method": "GET",
-            "header": [
-              {
-                "key": "auth",
-                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiaWF0IjoxNjc1MzQ3NDM0LCJleHAiOjE2NzUzNTEwMzR9.ms_AFYZ2UdVzX0nAaWt616yRJAxfTATmLIWfklQhM9o",
-                "type": "text"
-              }
-            ],
+            "header": [],
             "body": {
               "mode": "raw",
               "raw": ""
@@ -99,14 +115,18 @@
         {
           "name": "Save Appointment",
           "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OCwiaWF0IjoxNjc1MzU1MTI1LCJleHAiOjE2NzUzNTg3MjV9.O0J7Tm9kuujKgUXL2j1t3y9hXeZfJqrsL8XIFa05NIs",
+                  "type": "string"
+                }
+              ]
+            },
             "method": "POST",
-            "header": [
-              {
-                "key": "auth",
-                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiaWF0IjoxNjc1MzQ5ODM3LCJleHAiOjE2NzUzNTM0Mzd9.O0r7gAvefXiztTl9ScsVt5k6R6zCB6pTqowv3l3YDp4",
-                "type": "text"
-              }
-            ],
+            "header": [],
             "body": {
               "mode": "raw",
               "raw": "{\n    \"specialist_id\": 1,\n    \"doctor_id\": 1,\n    \"payment_id\": null,\n    \"schedule_id\": 1,\n    \"appointment_desc\": \"test\",\n    \"appointment_time\": \"20230101015959\",\n    \"total_price\": 50000,\n    \"status\": \"Waiting for payment\"\n}",
@@ -189,14 +209,18 @@
         {
           "name": "Pay Appointment ID",
           "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OCwiaWF0IjoxNjc1MzU1MTI1LCJleHAiOjE2NzUzNTg3MjV9.O0J7Tm9kuujKgUXL2j1t3y9hXeZfJqrsL8XIFa05NIs",
+                  "type": "string"
+                }
+              ]
+            },
             "method": "GET",
-            "header": [
-              {
-                "key": "auth",
-                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiaWF0IjoxNjc1MzUzNTUyLCJleHAiOjE2NzUzNTcxNTJ9.nf9Yroy7KcmXNFKbr6LRyDDAA1AGX4fvGww4U9oca7g",
-                "type": "text"
-              }
-            ],
+            "header": [],
             "url": {
               "raw": "localhost:8080/api/payment/transaction/1",
               "host": ["localhost"],
@@ -209,14 +233,18 @@
         {
           "name": "Health Check",
           "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OCwiaWF0IjoxNjc1MzU1MTI1LCJleHAiOjE2NzUzNTg3MjV9.O0J7Tm9kuujKgUXL2j1t3y9hXeZfJqrsL8XIFa05NIs",
+                  "type": "string"
+                }
+              ]
+            },
             "method": "GET",
-            "header": [
-              {
-                "key": "auth",
-                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiaWF0IjoxNjc1MzQ3NjIzLCJleHAiOjE2NzUzNTEyMjN9.r6EQ4amn5GI8FGqhYHtV86LEGAlKRFYsueKuy49lLCM",
-                "type": "text"
-              }
-            ],
+            "header": [],
             "url": {
               "raw": "localhost:8080/api/payment/health-check-transaction",
               "host": ["localhost"],

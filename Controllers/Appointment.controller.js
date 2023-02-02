@@ -51,7 +51,7 @@ class AppointmentControllers {
     const patientId = req.user.id;
     try {
       const appointments = await Appointments.findAll({
-        where: { user_id: user_id },
+        where: { user_id: patientId },
       });
       return res.status(200).json({
         data: appointments,

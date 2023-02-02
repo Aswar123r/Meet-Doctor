@@ -1,5 +1,4 @@
 const Router = require("express").Router();
-const Auth = require('../Middleweres/Auth.middleware')
 const Appointment = require("../Controllers/Appointment.controller");
 const Auth = require("../Middleweres/Auth.middleware");
 
