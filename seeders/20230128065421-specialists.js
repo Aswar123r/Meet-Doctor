@@ -15,27 +15,42 @@ module.exports = {
    const date = new Date()
    await queryInterface.bulkInsert('Specialists',[
     {
-    specialist_name : 'jangtung',
+    specialist_name : 'Psychiatrist',
     createdAt : date,
     updatedAt : date
    },
    {
-    specialist_name : 'organ dalam',
+    specialist_name : 'Pulmonologist',
     createdAt : date,
     updatedAt : date
    },
    {
-    specialist_name : 'kulit',
+    specialist_name : 'Nefrologist',
     createdAt : date,
     updatedAt : date
    },
    {
-    specialist_name : 'paru-paru',
+    specialist_name : 'Orthopedic',
     createdAt : date,
     updatedAt : date
    },
    {
-    specialist_name : 'organ tubuh',
+    specialist_name : 'Urologist',
+    createdAt : date,
+    updatedAt : date
+   },
+   {
+    specialist_name : 'Oral Surgeon',
+    createdAt : date,
+    updatedAt : date
+   },
+   {
+    specialist_name : 'Audiologist',
+    createdAt : date,
+    updatedAt : date
+   },
+   {
+    specialist_name : 'Neurologist',
     createdAt : date,
     updatedAt : date
    },

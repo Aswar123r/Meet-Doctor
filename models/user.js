@@ -67,7 +67,7 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue : 'user',
       validate : {
         notNull : true,
-        isIn : [['admin', 'doctor', 'user']]
+        isIn : [['doctor', 'user']]
       }
     },
     whatsapp : {

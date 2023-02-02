@@ -15,25 +15,43 @@ module.exports = {
    const date = new Date()
    await queryInterface.bulkInsert('Schedules', [
     {
-      date : 'senin - jumat',
+      date : 'Monday - Friday',
       time : '10:00 - 12:00',
       createdAt : date,
       updatedAt : date
     },
     {
-      date : 'senin - rabu',
+      date : 'Monday - Wednesday',
       time : '09:00 - 11:00',
       createdAt : date,
       updatedAt : date
     },
     {
-      date : 'rabu - jumat',
+      date : 'Wednesday- Friday',
       time : '10:00 - 12:00',
       createdAt : date,
       updatedAt : date
     },
     {
-      date : 'selasa - jumat',
+      date : 'Tuesday - Friday',
+      time : '13:00 - 14:00',
+      createdAt : date,
+      updatedAt : date
+    },
+    {
+      date : 'Monday - Tuesday',
+      time : '13:00 - 14:00',
+      createdAt : date,
+      updatedAt : date
+    },
+    {
+      date : 'Tuesday - Friday',
+      time : '13:00 - 14:00',
+      createdAt : date,
+      updatedAt : date
+    },
+    {
+      date : 'Saturday - Sunday',
       time : '13:00 - 14:00',
       createdAt : date,
       updatedAt : date
