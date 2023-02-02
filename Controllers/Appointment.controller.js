@@ -48,10 +48,10 @@ class AppointmentControllers {
   }
 
   static async GetAllAppointmentsByPatientId(req, res) {
-    const { patientId } = req.params;
+    const user_id = req.user.id
     try {
       const appointments = await Appointments.findAll({
-        where: { user_id: patientId },
+        where: { user_id: user_id },
       });
       return res.status(200).json({
         data: appointments,

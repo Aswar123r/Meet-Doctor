@@ -2,7 +2,7 @@ const Router = require('express').Router()
 
 const Auth = require('../Middleweres/Auth.middleware')
 const User = require('./User.Router')
-const Appoinment = require('./Appoinment.Router')
+const Appoinment = require('./Appointment.Router')
 const Specialist = require('./Specialist.router')
 const Doctor = require('./Doctor.router')
 

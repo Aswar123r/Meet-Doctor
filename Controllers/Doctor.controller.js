@@ -37,7 +37,7 @@ class DoctorController {
                 
             attributes : ['id','full_name', 'profile_picture', 'profile_desc', 'email', 'whatsapp']})
             if(!Doctor) return res.status(404).json({
-                message : 'NOT FOUND'
+                message : `Doctor's data  not found`
             })
             return res.status(200).json({
                 data : Doctor
@@ -67,7 +67,7 @@ class DoctorController {
                         attributes : {exclude : ['id', 'doctor_id', 'schedule_id']},
                 }
             ],
-            attributes : ['full_name', 'rating', 'profile_picture'], 
+            attributes : ['id','full_name', 'rating', 'profile_picture'], 
             })
             listDoctors = listDoctor
             } else if(specialistId) {
@@ -83,7 +83,7 @@ class DoctorController {
                         attributes : {exclude : ['id', 'doctor_id', 'schedule_id']},
                 }
             ],
-            attributes : ['full_name', 'rating', 'profile_picture'], 
+            attributes : ['id','full_name', 'rating', 'profile_picture'], 
             })
             listDoctors = listDoctor
             } else if (nameDoctor) {
@@ -99,7 +99,7 @@ class DoctorController {
                         attributes : {exclude : ['id', 'doctor_id', 'schedule_id']},
                 }
             ],
-            attributes : ['full_name', 'rating', 'profile_picture'], 
+            attributes : ['id','full_name', 'rating', 'profile_picture'], 
             })
             listDoctors = listDoctor
             } else {
@@ -115,12 +115,13 @@ class DoctorController {
                         attributes : {exclude : ['id', 'doctor_id', 'schedule_id']},
                 }
             ],
-            attributes : ['full_name', 'rating', 'profile_picture'], 
+            attributes : ['id','full_name', 'rating', 'profile_picture'], 
             })
             listDoctors = listDoctor
             }
 
             return res.status(200).json({
+                message : 'Data from doctors was found',
                 data : listDoctors
             })
         } catch (err) {

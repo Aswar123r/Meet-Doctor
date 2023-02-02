@@ -69,7 +69,6 @@ class UserControllers {
     static async uploadProfilePictures (req, res) {
         const {id} = req.user
         const {full_name, profile_desc, whatsapp} = req.body
-        console.log(whatsapp)
         try {
             const metaData = {
             contentType : 'image/jpeg'
@@ -77,11 +76,7 @@ class UserControllers {
         const {profile_picture} = await User.findByPk(id)
         if(profile_picture) {
             const desertref = await ref(storage, profile_picture)
-            deleteObject(desertref).then((result) => {
-                console.log('berhasil di hapus')
-            }).catch((err) => {
-                console.log(err)
-            });
+            await deleteObject(desertref)
         }
         const storageRef = await ref(storage, new Date().getTime() + req.file.originalname)
         const uploadTask = await uploadBytesResumable(storageRef, req.file.buffer, metaData)
@@ -103,6 +98,10 @@ class UserControllers {
             })
         } catch (err) {
             console.log(err)
+            return res.status(500).json({
+                message : 'INTERNAL SERVER ERROR'
+            })
+
         }
     }
 
@@ -113,6 +112,7 @@ class UserControllers {
                 exclude : ['password', 'id', 'role', 'specialist_id', 'price', 'price']
             }})
             return res.status(200).json({
+                message : 'User data successfully retrieved',
                 data : detailsUser
             })
         } catch (err) {
