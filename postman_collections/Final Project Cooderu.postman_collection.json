@@ -13,26 +13,85 @@
           "name": "Get All Appointments by Patient ID",
           "request": {
             "method": "GET",
-            "header": [],
+            "header": [
+              {
+                "key": "auth",
+                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiaWF0IjoxNjc1MzQ3NDM0LCJleHAiOjE2NzUzNTEwMzR9.ms_AFYZ2UdVzX0nAaWt616yRJAxfTATmLIWfklQhM9o",
+                "type": "text"
+              }
+            ],
             "url": {
-              "raw": "localhost:8080/api/appointment/get/patient/6",
+              "raw": "localhost:8080/api/appointment/get/patient",
               "host": ["localhost"],
               "port": "8080",
-              "path": ["api", "appointment", "get", "patient", "6"]
+              "path": ["api", "appointment", "get", "patient"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Appointment by Appointment ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "auth",
+                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiaWF0IjoxNjc1MzQ3NjIzLCJleHAiOjE2NzUzNTEyMjN9.r6EQ4amn5GI8FGqhYHtV86LEGAlKRFYsueKuy49lLCM",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "localhost:8080/api/appointment/get/2",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "appointment", "get", "2"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Cancel Appointment by Appointment ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "auth",
+                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiaWF0IjoxNjc1MzQ3NjIzLCJleHAiOjE2NzUzNTEyMjN9.r6EQ4amn5GI8FGqhYHtV86LEGAlKRFYsueKuy49lLCM",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "localhost:8080/api/appointment/cancel/1",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "appointment", "cancel", "1"]
             }
           },
           "response": []
         },
         {
           "name": "Get All Appointments by Doctor ID",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
             "method": "GET",
-            "header": [],
+            "header": [
+              {
+                "key": "auth",
+                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiaWF0IjoxNjc1MzQ3NDM0LCJleHAiOjE2NzUzNTEwMzR9.ms_AFYZ2UdVzX0nAaWt616yRJAxfTATmLIWfklQhM9o",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
             "url": {
-              "raw": "localhost:8080/api/appointment/get/doctor/1",
+              "raw": "localhost:8080/api/appointment/get/doctor/",
               "host": ["localhost"],
               "port": "8080",
-              "path": ["api", "appointment", "get", "doctor", "1"]
+              "path": ["api", "appointment", "get", "doctor", ""]
             }
           },
           "response": []
@@ -41,10 +100,16 @@
           "name": "Save Appointment",
           "request": {
             "method": "POST",
-            "header": [],
+            "header": [
+              {
+                "key": "auth",
+                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiaWF0IjoxNjc1MzQ5ODM3LCJleHAiOjE2NzUzNTM0Mzd9.O0r7gAvefXiztTl9ScsVt5k6R6zCB6pTqowv3l3YDp4",
+                "type": "text"
+              }
+            ],
             "body": {
               "mode": "raw",
-              "raw": "{\n    \"specialist_id\": 1,\n    \"doctor_id\": 1,\n    \"user_id\": 6,\n    \"payment_id\": null,\n    \"schedule_id\": 1,\n    \"appointment_desc\": \"test\",\n    \"appointment_time\": \"20230101015959\",\n    \"total_price\": 1200,\n    \"status\": \"Waiting for payment\"\n}",
+              "raw": "{\n    \"specialist_id\": 1,\n    \"doctor_id\": 1,\n    \"payment_id\": null,\n    \"schedule_id\": 1,\n    \"appointment_desc\": \"test\",\n    \"appointment_time\": \"20230101015959\",\n    \"total_price\": 50000,\n    \"status\": \"Waiting for payment\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -56,6 +121,107 @@
               "host": ["localhost"],
               "port": "8080",
               "path": ["api", "appointment", "save"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Register",
+      "item": [
+        {
+          "name": "Register",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"full_name\": \"afan\",\n    \"email\": \"afan@gmail.com\",\n    \"password\": \"12345678\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:8080/api/users/register",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "users", "register"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Login",
+      "item": [
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"afan@gmail.com\",\n    \"password\": \"12345678\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:8080/api/users/login",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "users", "login"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Payment",
+      "item": [
+        {
+          "name": "Pay Appointment ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "auth",
+                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiaWF0IjoxNjc1MzUzNTUyLCJleHAiOjE2NzUzNTcxNTJ9.nf9Yroy7KcmXNFKbr6LRyDDAA1AGX4fvGww4U9oca7g",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "localhost:8080/api/payment/transaction/1",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "payment", "transaction", "1"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Health Check",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "auth",
+                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiaWF0IjoxNjc1MzQ3NjIzLCJleHAiOjE2NzUzNTEyMjN9.r6EQ4amn5GI8FGqhYHtV86LEGAlKRFYsueKuy49lLCM",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "localhost:8080/api/payment/health-check-transaction",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "payment", "health-check-transaction"]
             }
           },
           "response": []

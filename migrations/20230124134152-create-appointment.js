@@ -49,6 +49,21 @@ module.exports = {
       appointment_time: {
         type: Sequelize.STRING,
       },
+      admin_fee: {
+        allowNull: false,
+        type: Sequelize.DOUBLE,
+        defaultValue: 0,
+      },
+      ppn: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        defaultValue: 0,
+      },
+      discount: {
+        allowNull: false,
+        type: Sequelize.DOUBLE,
+        defaultValue: 0,
+      },
       total_price: {
         allowNull: false,
         type: Sequelize.INTEGER,

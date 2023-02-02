@@ -80,6 +80,45 @@ class AppointmentControllers {
       });
     }
   }
+
+  static async GetAppointmentByID(req, res) {
+    const { appointmentId } = req.params;
+    try {
+      const appointment = await Appointments.findByPk(appointmentId);
+      return res.status(200).json({
+        data: appointment,
+      });
+    } catch (err) {
+      console.log(err);
+      return res.status(500).json({
+        message: "INTERNAL SERVER ERROR",
+      });
+    }
+  }
+
+  static async CancelAppointmentByID(req, res) {
+    const { appointmentId } = req.params;
+    try {
+      const appointment = await Appointments.update(
+        {
+          status: "CANCELED",
+        },
+        {
+          where: { id: appointmentId },
+        }
+      );
+
+      return res.status(200).json({
+        data: appointment,
+        message: "Appointment with id " + appointment + " is cancelled"
+      });
+    } catch (err) {
+      console.log(err);
+      return res.status(500).json({
+        message: "INTERNAL SERVER ERROR",
+      });
+    }
+  }
 }
 
 module.exports = AppointmentControllers;
