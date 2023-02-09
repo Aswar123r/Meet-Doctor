@@ -40,7 +40,7 @@ class DoctorController {
                 }
                 ],
                 
-            attributes : ['id','full_name', 'profile_picture', 'profile_desc', 'email', 'whatsapp']})
+            attributes : ['id','full_name', 'profile_picture', 'profile_desc', 'email', 'whatsapp', 'price']})
             if(!Doctor) return res.status(404).json({
                 message : `Doctor's data  not found`
             })
@@ -72,7 +72,7 @@ class DoctorController {
                         attributes : {exclude : ['id', 'doctor_id', 'schedule_id']},
                 }
             ],
-            attributes : ['id','full_name', 'rating', 'profile_picture'], 
+            attributes : ['id','full_name', 'rating', 'profile_picture', 'price'], 
             })
             listDoctors = listDoctor
             } else if(specialistId) {
@@ -88,7 +88,7 @@ class DoctorController {
                         attributes : {exclude : ['id', 'doctor_id', 'schedule_id']},
                 }
             ],
-            attributes : ['id','full_name', 'rating', 'profile_picture'], 
+            attributes : ['id','full_name', 'rating', 'profile_picture', 'price'], 
             })
             listDoctors = listDoctor
             } else if (nameDoctor) {
@@ -104,7 +104,7 @@ class DoctorController {
                         attributes : {exclude : ['id', 'doctor_id', 'schedule_id']},
                 }
             ],
-            attributes : ['id','full_name', 'rating', 'profile_picture'], 
+            attributes : ['id','full_name', 'rating', 'profile_picture', 'price'], 
             })
             listDoctors = listDoctor
             } else {
@@ -120,7 +120,7 @@ class DoctorController {
                         attributes : {exclude : ['id', 'doctor_id', 'schedule_id']},
                 }
             ],
-            attributes : ['id','full_name', 'rating', 'profile_picture'], 
+            attributes : ['id','full_name', 'rating', 'profile_picture', 'price'], 
             })
             listDoctors = listDoctor
             }
