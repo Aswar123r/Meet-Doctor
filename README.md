@@ -5,7 +5,7 @@
 Deployed to [Heroku](https://mydoctor.herokuapp.com)
 
 
-## Dokumentasion
+## Documentation
 
 <https://documenter.getpostman.com/view/25289790/2s935hST5z>
 
