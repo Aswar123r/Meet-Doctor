@@ -6,7 +6,7 @@ const verifyRegisterUser = async (req, res, next) => {
         email : Joi.string().email().required(),
         password : Joi.string().min(8).required(),
     })
-    if (Schema.validate(req.body).error) es.json({
+    if (Schema.validate(req.body).error) return res.json({
              message : Schema.validate(req.body).error.message,
         })
     else next()
@@ -17,7 +17,7 @@ const verifyLogin = async (req, res, next ) => {
         email : Joi.string().email().required(),
         password : Joi.string().min(8).required(),
     })
-    if(Schema.validate(req.body).error) res.json({
+    if(Schema.validate(req.body).error) return res.json({
              message : Schema.validate(req.body).error.message,
         })
     else next()
@@ -34,7 +34,7 @@ const verifyUpdate = async (req, res, next) => {
         profile_desc : Joi.string().optional(),
         whatsapp : Joi.string().length(12).optional(),
     })
-    if (Schema.validate(req.body).error)res.json({
+    if (Schema.validate(req.body).error) return res.json({
              message : Schema.validate(req.body).error.message,
         })
     else next()

@@ -40,6 +40,8 @@ module.exports = (sequelize, DataTypes) => {
       discount: DataTypes.DOUBLE,
       total_price: DataTypes.DOUBLE,
       status: DataTypes.STRING,
+       url_midtrans: DataTypes.STRING,
+       token_midtrans: DataTypes.STRING,
     },
     {
       sequelize,

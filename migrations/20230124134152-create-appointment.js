@@ -72,6 +72,12 @@ module.exports = {
       status: {
         type: Sequelize.STRING,
       },
+       url_midtrans: {
+        type: Sequelize.STRING,
+      },
+       token_midtrans: {
+        type: Sequelize.STRING,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

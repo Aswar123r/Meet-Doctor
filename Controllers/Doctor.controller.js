@@ -33,6 +33,11 @@ class DoctorController {
                         model : Specialist,
                         attributes : ['specialist_name'] 
                     },
+                    {
+                        model : Schedule_doctor,
+                        include : [Schedules],
+                        attributes : {exclude : ['id', 'doctor_id', 'schedule_id']},
+                }
                 ],
                 
             attributes : ['id','full_name', 'profile_picture', 'profile_desc', 'email', 'whatsapp']})
