@@ -1,42 +1,56 @@
 const { Appointments } = require("../models");
+const { User } = require("../models");
+const axios = require("axios");
+const { asyncWrapper, getCurrentTimestamp } = require("../common/utils");
 
 class AppointmentControllers {
   static async SaveAppointment(req, res) {
     const user_id = req.user.id;
-    let {
-      specialist_id,
-      doctor_id,
-      payment_id,
-      schedule_id,
-      appointment_desc,
-      appointment_time,
-      total_price,
-      status,
-    } = req.body;
+    let { doctor_id, schedule_id, datetime, appointment_desc, total_price } =
+      req.body;
     try {
+      const { specialist_id } = await User.findByPk(doctor_id);
+
+      const requestPaymentToken = await axios({
+        // Below is the API URL endpoint
+        url: `${process.env.API_MIDTRANS_TRANSACTION_URL}`,
+        method: "post",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization:
+            "Basic " +
+            Buffer.from(`${process.env.SERVER_KEY}`).toString("base64"),
+          // Above is API server key for the Midtrans account, encoded to base64
+        },
+        data:
+          // Below is the HTTP request body in JSON
+          {
+            transaction_details: {
+              order_id: "APP-" + user_id + "-" + getCurrentTimestamp(),
+              gross_amount: total_price,
+            },
+          },
+      });
+
       const insertDataAppointment = await Appointments.create({
-        specialist_id: specialist_id,
         doctor_id: doctor_id,
+        specialist_id: specialist_id,
         user_id: user_id,
-        payment_id: payment_id,
         schedule_id: schedule_id,
         appointment_desc: appointment_desc,
-        appointment_time: appointment_time,
+        appointment_time: datetime,
         total_price: total_price,
-        status: status,
+        token_midtrans: requestPaymentToken.data.token,
+        url_midtrans: requestPaymentToken.data.redirect_url,
+        status: "PENDING",
       });
       return res.status(201).json({
         message: "Appointment is registered",
         data: {
-          specialist_id: insertDataAppointment.specialist_id,
-          doctor_id: insertDataAppointment.doctor_id,
-          user_id: insertDataAppointment.user_id,
-          payment_id: insertDataAppointment.payment_id,
-          schedule_id: insertDataAppointment.schedule_id,
-          appointment_desc: insertDataAppointment.appointment_desc,
-          appointment_time: insertDataAppointment.appointment_time,
-          total_price: insertDataAppointment.total_price,
-          status: insertDataAppointment.status,
+          appointmentId: insertDataAppointment.id,
+          token_midtrans: requestPaymentToken.data.token,
+          url_midtrans: requestPaymentToken.data.redirect_url,
         },
       });
     } catch (err) {
@@ -110,7 +124,7 @@ class AppointmentControllers {
 
       return res.status(200).json({
         data: appointment,
-        message: "Appointment with id " + appointment + " is cancelled"
+        message: "Appointment with id " + appointment + " is cancelled",
       });
     } catch (err) {
       console.log(err);

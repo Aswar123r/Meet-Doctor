@@ -120,7 +120,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OCwiaWF0IjoxNjc1MzU1MTI1LCJleHAiOjE2NzUzNTg3MjV9.O0J7Tm9kuujKgUXL2j1t3y9hXeZfJqrsL8XIFa05NIs",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjc2MDQ0OTYwLCJleHAiOjE2NzYwNDg1NjB9.VkYMSE3uNKLZXH6sTcfsx4koZJp5ZKTs1gRMVp5MHwY",
                   "type": "string"
                 }
               ]
@@ -129,7 +129,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\n    \"specialist_id\": 1,\n    \"doctor_id\": 1,\n    \"payment_id\": null,\n    \"schedule_id\": 1,\n    \"appointment_desc\": \"test\",\n    \"appointment_time\": \"20230101015959\",\n    \"total_price\": 50000,\n    \"status\": \"Waiting for payment\"\n}",
+              "raw": "{\n    \"doctor_id\": 2,\n    \"datetime\": \"01-01-2023 01:00 PM\",\n    \"schedule_id\": 1,\n    \"appointment_desc\": \"test\",\n    \"total_price\": 50000\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -197,59 +197,6 @@
               "host": ["localhost"],
               "port": "8080",
               "path": ["api", "users", "login"]
-            }
-          },
-          "response": []
-        }
-      ]
-    },
-    {
-      "name": "Payment",
-      "item": [
-        {
-          "name": "Pay Appointment ID",
-          "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OCwiaWF0IjoxNjc1MzU1MTI1LCJleHAiOjE2NzUzNTg3MjV9.O0J7Tm9kuujKgUXL2j1t3y9hXeZfJqrsL8XIFa05NIs",
-                  "type": "string"
-                }
-              ]
-            },
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "localhost:8080/api/payment/transaction/1",
-              "host": ["localhost"],
-              "port": "8080",
-              "path": ["api", "payment", "transaction", "1"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Health Check",
-          "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OCwiaWF0IjoxNjc1MzU1MTI1LCJleHAiOjE2NzUzNTg3MjV9.O0J7Tm9kuujKgUXL2j1t3y9hXeZfJqrsL8XIFa05NIs",
-                  "type": "string"
-                }
-              ]
-            },
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "localhost:8080/api/payment/health-check-transaction",
-              "host": ["localhost"],
-              "port": "8080",
-              "path": ["api", "payment", "health-check-transaction"]
             }
           },
           "response": []
