@@ -1,4 +1,6 @@
 const { Appointments } = require("../models");
+const Snap = require("../Helpers/Midtrans.helper")
+const midtransClient = require('midtrans-client')
 const { User } = require("../models");
 const axios = require("axios");
 const { asyncWrapper, getCurrentTimestamp } = require("../common/utils");
@@ -10,29 +12,16 @@ class AppointmentControllers {
       req.body;
     try {
       const { specialist_id } = await User.findByPk(doctor_id);
-
-      const requestPaymentToken = await axios({
-        // Below is the API URL endpoint
-        url: `${process.env.API_MIDTRANS_TRANSACTION_URL}`,
-        method: "post",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-          Authorization:
-            "Basic " +
-            Buffer.from(`${process.env.SERVER_KEY}`).toString("base64"),
-          // Above is API server key for the Midtrans account, encoded to base64
-        },
-        data:
-          // Below is the HTTP request body in JSON
-          {
-            transaction_details: {
-              order_id: "APP-" + user_id + "-" + getCurrentTimestamp(),
-              gross_amount: total_price,
-            },
-          },
-      });
-
+      let parameter = {
+          "transaction_details": {
+              "order_id": "APP-" + user_id + "-" + getCurrentTimestamp(),
+              "gross_amount": total_price
+          }, "credit_card":{
+              "secure" : true
+          }
+      };
+      const requestPaymentToken = await Snap.createTransaction(parameter)
+     
       const insertDataAppointment = await Appointments.create({
         doctor_id: doctor_id,
         specialist_id: specialist_id,
@@ -41,16 +30,16 @@ class AppointmentControllers {
         appointment_desc: appointment_desc,
         appointment_time: datetime,
         total_price: total_price,
-        token_midtrans: requestPaymentToken.data.token,
-        url_midtrans: requestPaymentToken.data.redirect_url,
+        token_midtrans: requestPaymentToken.token,
+        url_midtrans: requestPaymentToken.redirect_url,
         status: "PENDING",
       });
       return res.status(201).json({
         message: "Appointment is registered",
         data: {
           appointmentId: insertDataAppointment.id,
-          token_midtrans: requestPaymentToken.data.token,
-          url_midtrans: requestPaymentToken.data.redirect_url,
+          token_midtrans: requestPaymentToken.token,
+          url_midtrans: requestPaymentToken.redirect_url,
         },
       });
     } catch (err) {
@@ -97,8 +86,9 @@ class AppointmentControllers {
 
   static async GetAppointmentByID(req, res) {
     const { appointmentId } = req.params;
+    const user_id = req.user.id;
     try {
-      const appointment = await Appointments.findByPk(appointmentId);
+      const appointment = await Appointments.findOne({where : {id : appointmentId, user_id : user_id}});
       return res.status(200).json({
         data: appointment,
       });
@@ -112,19 +102,22 @@ class AppointmentControllers {
 
   static async CancelAppointmentByID(req, res) {
     const { appointmentId } = req.params;
+    const user_id = req.user.id;
     try {
       const appointment = await Appointments.update(
         {
           status: "CANCELED",
         },
         {
-          where: { id: appointmentId },
+          where: { id: appointmentId, user_id : user_id },
         }
       );
+      if(appointment== 0) return res.status(403).json({
+        message : 'Access to that Appoitment is forbidden'
+      })
 
       return res.status(200).json({
-        data: appointment,
-        message: "Appointment with id " + appointment + " is cancelled",
+        message: "Appointment  is cancelled",
       });
     } catch (err) {
       console.log(err);

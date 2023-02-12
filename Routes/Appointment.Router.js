@@ -7,6 +7,6 @@ Router.post("/save", Appointment.SaveAppointment);
 Router.get("/get/patient/", Appointment.GetAllAppointmentsByPatientId);
 Router.get("/get/doctor/", Appointment.GetAllAppointmentsByDoctorId);
 Router.get("/get/:appointmentId", Appointment.GetAppointmentByID);
-Router.get("/cancel/:appointmentId", Appointment.CancelAppointmentByID);
+Router.put("/cancel/:appointmentId", Appointment.CancelAppointmentByID);
 
 module.exports = Router;
