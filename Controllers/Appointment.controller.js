@@ -140,7 +140,7 @@ class AppointmentControllers {
       });
     }
   }
-
+//testing
   static async Notifications (req, res ) {
     Snap.transaction.notification(req.body).then((response) => {
       console.log(response)
