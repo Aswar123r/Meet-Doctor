@@ -15,6 +15,14 @@ module.exports = (sequelize, DataTypes) => {
       this.hasMany(models.Rating, {
         foreignKey : 'doctor_id'
       })
+      this.hasMany(models.Appointments, {
+        foreignKey : 'doctor_id',
+        as : 'Doctor'
+      })
+      this.hasMany(models.Appointments, {
+        foreignKey : 'doctor_id',
+        as : 'User'
+      })
       this.hasMany(models.Rating, {
         foreignKey : 'user_id'
       })

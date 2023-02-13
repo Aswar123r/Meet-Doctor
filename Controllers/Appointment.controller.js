@@ -1,9 +1,9 @@
-const { Appointments } = require("../models");
+const { Appointments, User, Schedule_doctor, Schedules } = require("../models");
 const Snap = require("../Helpers/Midtrans.helper")
 const midtransClient = require('midtrans-client')
-const { User } = require("../models");
 const axios = require("axios");
 const { asyncWrapper, getCurrentTimestamp } = require("../common/utils");
+const { response } = require("express");
 
 class AppointmentControllers {
   static async SaveAppointment(req, res) {
@@ -55,6 +55,20 @@ class AppointmentControllers {
     try {
       const appointments = await Appointments.findAll({
         where: { user_id: patientId },
+         include : [
+          {
+            model : User,
+            as : "Doctor",
+            attributes  : ['id','full_name', 'rating', 'profile_picture', 'price', 'whatsapp', 'email','profile_desc'],
+            include : [
+               {
+                        model : Schedule_doctor,
+                        include : [Schedules],
+                        attributes : {exclude : ['id', 'doctor_id', 'schedule_id']},
+                }
+            ]
+          }
+         ], 
       });
       return res.status(200).json({
         data: appointments,
@@ -125,6 +139,12 @@ class AppointmentControllers {
         message: "INTERNAL SERVER ERROR",
       });
     }
+  }
+
+  static async Notifications (req, res ) {
+    Snap.transaction.notification(req.body).then((response) => {
+      console.log(response)
+    })
   }
 }
 
