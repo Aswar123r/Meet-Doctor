@@ -23,6 +23,7 @@ module.exports = (sequelize, DataTypes) => {
       });
       this.belongsTo(models.Schedules, {
         foreignKey: "schedule_id",
+        as : 'Schedule'
       });
     }
   }
@@ -38,6 +39,7 @@ module.exports = (sequelize, DataTypes) => {
       status: DataTypes.STRING,
       url_midtrans: DataTypes.STRING,
       token_midtrans: DataTypes.STRING,
+      order_id_midtrans : DataTypes.STRING,
     },
     {
       sequelize,

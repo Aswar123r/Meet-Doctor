@@ -11,6 +11,6 @@ Router.use('/users', User)
 Router.use('/specialists', Specialist)
 Router.use('/doctors', Doctor)
 Router.use('/appointment', Appointment)
-Router.use('payments', Payment)
+Router.use('/payments', Payment)
 
 module.exports = Router

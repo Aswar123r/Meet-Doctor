@@ -57,6 +57,9 @@ module.exports = {
       token_midtrans: {
         type: Sequelize.STRING,
       },
+      order_id_midtrans : {
+        type: Sequelize.STRING,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

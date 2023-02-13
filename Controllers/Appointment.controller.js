@@ -12,15 +12,17 @@ class AppointmentControllers {
       req.body;
     try {
       const { specialist_id } = await User.findByPk(doctor_id);
+      const orderId =  "APP-" + user_id + "-" + getCurrentTimestamp()
       let parameter = {
           "transaction_details": {
-              "order_id": "APP-" + user_id + "-" + getCurrentTimestamp(),
+              "order_id": orderId,
               "gross_amount": total_price
           }, "credit_card":{
               "secure" : true
           }
       };
       const requestPaymentToken = await Snap.createTransaction(parameter)
+      console.log(requestPaymentToken)
      
       const insertDataAppointment = await Appointments.create({
         doctor_id: doctor_id,
@@ -33,6 +35,7 @@ class AppointmentControllers {
         token_midtrans: requestPaymentToken.token,
         url_midtrans: requestPaymentToken.redirect_url,
         status: "PENDING",
+        order_id_midtrans : orderId,
       });
       return res.status(201).json({
         message: "Appointment is registered",
@@ -60,16 +63,15 @@ class AppointmentControllers {
             model : User,
             as : "Doctor",
             attributes  : ['id','full_name', 'rating', 'profile_picture', 'price', 'whatsapp', 'email','profile_desc'],
-            include : [
-               {
-                        model : Schedule_doctor,
-                        include : [Schedules],
-                        attributes : {exclude : ['id', 'doctor_id', 'schedule_id']},
-                }
-            ]
+          },
+          {
+            model : Schedules,
+            as : "Schedule",
+            attributes : {exclude : ['createdAt', 'updatedAt']}
+            
           }
          ], 
-      });
+      attributes : {exclude : ['doctor_id', 'schedule_id']}});
       return res.status(200).json({
         data: appointments,
       });
@@ -142,9 +144,30 @@ class AppointmentControllers {
   }
 //testing
   static async Notifications (req, res ) {
-    Snap.transaction.notification(req.body).then((response) => {
-      console.log(response)
-    })
+    try {
+      let dataTransaction = await Snap.transaction.notification(req.body)
+      if(dataTransaction) {
+        const AppointmentByOrderId = await Appointments.findOne({where : { order_id_midtrans: dataTransaction.order_id}})
+        if(AppointmentByOrderId) {
+          if(dataTransaction.transaction_status == 'settlement') {
+            await AppointmentByOrderId.update({status: "SUCCESS"}, {where : {order_id_midtrans : dataTransaction.order_id}})
+          } else if (dataTransaction.transaction_status == 'cancel' || dataTransaction.transaction_status == 'expire') {
+            await AppointmentByOrderId.update({status: "FAIL"}, {where : {order_id_midtrans : dataTransaction.order_id}})
+          } else if (dataTransaction.transaction_status == 'pending' || dataTransaction.transaction_status == 'deny') {
+             await AppointmentByOrderId.update({status: "PENDING"}, {where : {order_id_midtrans : dataTransaction.order_id}})
+          }
+        }
+      } else {
+        return res.status(404).json({
+          message : 'NOT FOUND'
+        })
+      }
+    } catch (err) {
+      console.log(err)
+      return res.status(500).json({
+        message: "INTERNAL SERVER ERROR",
+      });
+    }
   }
 }
 
