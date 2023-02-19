@@ -37,19 +37,24 @@ module.exports = {
           key: "id",
         },
       },
+      appointment_status : {
+        type: Sequelize.STRING,
+        defaultValue: "PENDING",
+      },
       appointment_desc: {
         type: Sequelize.STRING,
       },
       appointment_time: {
-        type: Sequelize.STRING,
+        type: Sequelize.DATEONLY,
       },
       total_price: {
         allowNull: false,
         type: Sequelize.INTEGER,
         defaultValue: 0,
       },
-      status: {
+      payment_status: {
         type: Sequelize.STRING,
+         defaultValue: "PENDING",
       },
       url_midtrans: {
         type: Sequelize.STRING,

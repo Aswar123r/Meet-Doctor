@@ -1,17 +1,9 @@
-const firebase = require('firebase/app')
 const {getStorage, ref, uploadBytesResumable, getDownloadURL, deleteObject } = require('firebase/storage')
+
+const Firebase = require('../Helpers/Firebase.helper')
 const {User} = require('../models')
 const {Sign} = require('../Helpers/JWT.helper')
 const {Hash, Compare} = require('../Helpers/Bcrypt.helper')
-const { where } = require('sequelize')
-firebase.initializeApp({
-    apiKey : process.env.apiKey,
-    authDomain : process.env.authDomain,
-    projectId : process.env.projectId,
-    storageBucket : process.env.storageBucket,
-    messagingSenderId : process.env.messagingSenderId,
-    appId : process.env.appId
-})
 const storage = getStorage()
 
 class UserControllers {
@@ -19,11 +11,17 @@ class UserControllers {
         let {full_name, email, password} = req.body
         password = Hash(password)
         try {
-            const validateEmail = await User.findOne({where : {email : email}})
+            const validateEmail = await User.findOne({
+                where : {email : email}
+            })
             if(validateEmail) return res.status(400).json({
                 message : 'Email already registered'
             })
-            const insertDataUser = await User.create({full_name : full_name, email : email, password : password})
+            const insertDataUser = await User.create({
+                full_name : full_name,
+                email : email,
+                password : password
+            })
             return res.status(201).json({
                 message : 'Conratulations You Are Registered',
                 data : {
@@ -42,7 +40,9 @@ class UserControllers {
     static async Login (req, res) {
         const {email, password } = req.body
         try {
-            const validateEmail = await User.findOne({where : {email : email}})
+            const validateEmail = await User.findOne({
+                where : {email : email}
+            })
             if(!validateEmail) return res.status(404).json({
                 message : 'Email Not Register'
             })
@@ -85,7 +85,11 @@ class UserControllers {
             full_name : full_name, 
             profile_desc : profile_desc, 
             profile_picture : downloadURL, 
-            whatsapp : whatsapp}, {where : {id : id}})
+            whatsapp : whatsapp
+        },
+        { 
+            where : {id : id}
+        })
         const dataUser = await User.findByPk(id)
             return res.status(200).json({
                 message : 'Update Successfully',
@@ -108,9 +112,12 @@ class UserControllers {
     static async Detail (req, res) {
         const {id} = req.user
         try {
-            const detailsUser = await User.findOne({where : {id : id}, attributes : {
-                exclude : ['password', 'id', 'role', 'specialist_id', 'price', 'price']
-            }})
+            const detailsUser = await User.findOne({
+                where : {id : id},
+                attributes : {
+                    exclude : ['password', 'id', 'role', 'specialist_id', 'price', 'price']
+                }
+            })
             return res.status(200).json({
                 message : 'User data successfully retrieved',
                 data : detailsUser

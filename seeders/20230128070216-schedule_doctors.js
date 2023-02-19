@@ -20,31 +20,91 @@ module.exports = {
     createdAt : date,
     updatedAt : date
    },
+   {
+    doctor_id : 2,
+    schedule_id : 2,
+    createdAt : date,
+    updatedAt : date
+   },
+   {
+    doctor_id : 5,
+    schedule_id : 1,
+    createdAt : date,
+    updatedAt : date
+   },
   {
     doctor_id : 1,
     schedule_id : 1,
     createdAt : date,
     updatedAt : date
-   }
-  ,
-{
+   },
+   {
+    doctor_id : 1,
+    schedule_id : 2,
+    createdAt : date,
+    updatedAt : date
+   },
+   {
+    doctor_id : 1,
+    schedule_id : 3,
+    createdAt : date,
+    updatedAt : date
+   },
+   {
+    doctor_id : 1,
+    schedule_id : 4,
+    createdAt : date,
+    updatedAt : date
+   },
+   {
+    doctor_id : 1,
+    schedule_id : 5,
+    createdAt : date,
+    updatedAt : date
+   },
+   {
     doctor_id : 3,
     schedule_id : 2,
     createdAt : date,
     updatedAt : date
    },
-  {
+   {
     doctor_id : 3,
-    schedule_id : 4,
+    schedule_id : 3,
     createdAt : date,
     updatedAt : date
    },
   {
     doctor_id : 4,
-    schedule_id : 3,
+    schedule_id : 1,
     createdAt : date,
     updatedAt : date
-   }])
+   },
+   {
+    doctor_id : 4,
+    schedule_id : 5,
+    createdAt : date,
+    updatedAt : date
+   },
+   {
+    doctor_id : 5,
+    schedule_id : 5,
+    createdAt : date,
+    updatedAt : date
+   },
+   {
+    doctor_id : 5,
+    schedule_id : 6,
+    createdAt : date,
+    updatedAt : date
+   },
+   {
+    doctor_id : 5,
+    schedule_id : 7,
+    createdAt : date,
+    updatedAt : date
+   },
+  ])
   },
 
   async down (queryInterface, Sequelize) {

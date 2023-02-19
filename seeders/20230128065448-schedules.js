@@ -15,43 +15,43 @@ module.exports = {
    const date = new Date()
    await queryInterface.bulkInsert('Schedules', [
     {
-      date : 'Monday - Friday',
+      date : 'Monday',
       time : '10:00 - 12:00',
       createdAt : date,
       updatedAt : date
     },
     {
-      date : 'Monday - Wednesday',
+      date : 'Tuesday',
       time : '09:00 - 11:00',
       createdAt : date,
       updatedAt : date
     },
     {
-      date : 'Wednesday- Friday',
+      date : 'Wednesday',
       time : '10:00 - 12:00',
       createdAt : date,
       updatedAt : date
     },
     {
-      date : 'Tuesday - Friday',
+      date : 'Thursday',
       time : '13:00 - 14:00',
       createdAt : date,
       updatedAt : date
     },
     {
-      date : 'Monday - Tuesday',
+      date : 'Friday',
       time : '13:00 - 14:00',
       createdAt : date,
       updatedAt : date
     },
     {
-      date : 'Tuesday - Friday',
+      date : 'Saturday',
       time : '13:00 - 14:00',
       createdAt : date,
       updatedAt : date
     },
     {
-      date : 'Saturday - Sunday',
+      date : 'Sunday',
       time : '13:00 - 14:00',
       createdAt : date,
       updatedAt : date

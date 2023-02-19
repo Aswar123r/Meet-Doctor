@@ -20,6 +20,7 @@ module.exports = (sequelize, DataTypes) => {
       
       this.belongsTo(models.Specialist, {
         foreignKey: "specialist_id",
+        as : 'Specialist'
       });
       this.belongsTo(models.Schedules, {
         foreignKey: "schedule_id",
@@ -33,13 +34,15 @@ module.exports = (sequelize, DataTypes) => {
       doctor_id: DataTypes.INTEGER,
       user_id: DataTypes.INTEGER,
       schedule_id: DataTypes.INTEGER,
+      appointment_status :  DataTypes.STRING,
       appointment_desc: DataTypes.STRING,
       appointment_time: DataTypes.STRING,
       total_price: DataTypes.DOUBLE,
-      status: DataTypes.STRING,
+      payment_status: DataTypes.STRING,
       url_midtrans: DataTypes.STRING,
       token_midtrans: DataTypes.STRING,
       order_id_midtrans : DataTypes.STRING,
+      
     },
     {
       sequelize,

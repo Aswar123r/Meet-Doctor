@@ -4,6 +4,8 @@ const Auth = require('../Middleweres/Auth.middleware')
 
 
 Router.get('/', Doctor.listDoctor)
+Router.get('/all', Doctor.scheduleAndAppoimentActiveByDoctorId)
+Router.get('/schedule/:doctorId', Doctor.scheduleAndAppoimentActiveByDoctorId)
 Router.use(Auth)
 Router.get('/:doctorId', Doctor.doctorById)
 
