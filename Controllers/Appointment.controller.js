@@ -1,8 +1,14 @@
 const {Sequelize, Op} = require('sequelize')
-let moment = require('moment')
+const moment = require('moment')
 const { Appointments, User, Schedules, Specialist, Schedule_doctor } = require("../models")
 const Snap = require("../Helpers/Midtrans.helper")
-const { asyncWrapper, getCurrentTimestamp } = require("../common/utils")
+const {
+  asyncWrapper,
+  getCurrentTimestamp,
+  checkAppointments,
+  checkDays,
+  dateToObject
+} = require("../common/utils")
 moment.locale('id')
 let dateNow = moment().format('YYYY-MM-DD')
 class AppointmentControllers {
@@ -29,8 +35,6 @@ class AppointmentControllers {
           doctor_id : doctor_id,
           schedule_id : schedule_id
           }})
-
-          console.log(scheduleVerifyDate + " " + scheduleVerify)
       if(!scheduleVerifyDate || !scheduleVerify) return res.status(303).json({
         message : 'The doctor you choose does not have a schedule on the day you choose'
       })
@@ -94,7 +98,7 @@ class AppointmentControllers {
       const appointments = await Appointments.findAll({
         where: { user_id: patientId },
         order: [['appointment_time', 'ASC']],
-         include : [
+        include : [
           {
             model : User,
             as : "Doctor",
@@ -112,7 +116,8 @@ class AppointmentControllers {
             attributes : ['specialist_name']
           }
          ], 
-      attributes : {exclude : ['doctor_id', 'schedule_id', 'specialist_id']}})
+      attributes : {exclude : ['doctor_id', 'schedule_id', 'specialist_id', 'user_id']}
+    })
       return res.status(200).json({
         data: appointments,
       })
@@ -126,6 +131,12 @@ class AppointmentControllers {
 
   static async GetAllAppointmentsByDoctorId(req, res) {
     const {doctorId} = req.params
+    const getDays = (year, month) => new Date(year, month, 0).getDate()
+    const Days = getDays(new Date().getFullYear(), new Date().getMonth()+1).toString()
+    let dayEnd = `${new Date().getFullYear()}-${new Date().getMonth()+1}-${Days}`
+    let  scheduleDoctor = []
+    let disabledDate = []
+    dayEnd = moment(dayEnd, "YYYY-MM-DD").format('YYYY-MM-DD')
     try {
       const appointments = await Appointments.findAll({
         where: {
@@ -136,24 +147,8 @@ class AppointmentControllers {
           //payment_status : 'SUCCESS'
         },
         order: [['appointment_time', 'ASC']],
-        include : [
-          {
-            model : Schedules,
-            as : "Schedule",
-            attributes : {exclude : ['createdAt', 'updatedAt']} 
-          },
-          {
-            model : Specialist,
-            as : "Specialist",
-            attributes : ['specialist_name']
-          }
-        ],
-        attributes : {exclude : ['doctor_id', 'schedule_id', 'specialist_id']}
+        attributes : ['appointment_time']
       })
-      let allAppointmentAndScheduleDoctor = {
-        Appointments : appointments,
-        Schedule_doctor : []
-      }
       const Schedule = await Schedule_doctor.findAll({
         where : {
           doctor_id : doctorId
@@ -166,9 +161,19 @@ class AppointmentControllers {
         ],
         attributes : ['createdAt']
       })
-      Schedule.map((data) => allAppointmentAndScheduleDoctor['Schedule_doctor'].push(data.Schedule))
+      Schedule.map((data) => scheduleDoctor.push(data.Schedule))
+      for(let Date = moment(dateNow); Date.diff(dayEnd, 'days') <= 0; Date.add(1, 'days')) {
+        if (checkAppointments(appointments, Date)) {
+          disabledDate.push(dateToObject(Date))
+          continue
+        }
+        if(checkDays(scheduleDoctor, Date)) {
+          continue
+        }
+        disabledDate.push(dateToObject(Date))
+      }
       return res.status(200).json({
-        data: allAppointmentAndScheduleDoctor,
+        data: disabledDate,
       })
     } catch (err) {
       console.log(err);
@@ -182,7 +187,31 @@ class AppointmentControllers {
     const { appointmentId } = req.params
     const user_id = req.user.id
     try {
-      const appointment = await Appointments.findOne({where : {id : appointmentId, user_id : user_id}})
+      const appointment = await Appointments.findOne({
+        where : {
+          id : appointmentId,
+          user_id : user_id
+        },
+        include : [
+          {
+            model : User,
+            as : "Doctor",
+            attributes  : ['id','full_name', 'rating', 'profile_picture', 'price', 'whatsapp', 'email','profile_desc'],
+          },
+          {
+            model : Schedules,
+            as : "Schedule",
+            attributes : {exclude : ['createdAt', 'updatedAt']}
+            
+          },
+          {
+            model : Specialist,
+            as : "Specialist",
+            attributes : ['specialist_name']
+          }
+        ],
+        attributes : {exclude : ['doctor_id', 'schedule_id', 'specialist_id', 'user_id']},
+      })
       return res.status(200).json({
         data: appointment,
       })
@@ -231,7 +260,7 @@ class AppointmentControllers {
             order_id_midtrans: dataTransaction.order_id
           }
         })
-        /*const cancelAppointment = await Appointments.findAll({
+        const cancelAppointment = await Appointments.findAll({
           where : {
             appointment_time : AppointmentByOrderId.appointment_time,
             payment_status : 'WAITING',
@@ -239,11 +268,13 @@ class AppointmentControllers {
               [Sequelize.Op.ne] : AppointmentByOrderId.order_id_midtrans
             }
           }
-        }) */
+        }) 
         if(AppointmentByOrderId) {
           if(dataTransaction.transaction_status == 'settlement') {
-            /*if (cancelAppointment.length) {
+            if (cancelAppointment.length) {
               for (let index in cancelAppointment) {
+                const validateTransaction = await Snap.transaction.cancel(cancelAppointment[index].order_id_midtrans)
+                if (!validateTransaction) continue
                 await Appointments.update({
                   payment_status: "FAIL",
                   appointment_status :  "FAIL"
@@ -253,9 +284,8 @@ class AppointmentControllers {
                     order_id_midtrans : cancelAppointment[index].order_id_midtrans
                   }
                 })
-                await Snap.transaction.cancel(cancelAppointment[index].order_id_midtrans)
               }
-            }*/
+            }
             await Appointments.update({
             payment_status: "SUCCESS",
             appointment_status :  "WAITING"
